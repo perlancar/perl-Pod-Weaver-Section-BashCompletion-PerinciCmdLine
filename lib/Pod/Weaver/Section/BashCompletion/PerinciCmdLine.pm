@@ -7,6 +7,8 @@ use 5.010001;
 use Moose;
 with 'Pod::Weaver::Role::Section';
 
+use Moose::Autobox;
+
 sub weave_section {
     my ($self, $document, $input) = @_;
 
@@ -60,7 +62,7 @@ _
             command  => 'head1',
             content  => 'BASH COMPLETION',
             children => [
-                Pod::Elemental::Element::Pod5::Ordinary->new({ content => $text }),
+                map { s/\n/ /g; Pod::Elemental::Element::Pod5::Ordinary->new({ content => $_ })} split /\n\n/, $text
             ],
         }),
     );
