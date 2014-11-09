@@ -7,13 +7,13 @@ use 5.010001;
 use Moose;
 with 'Pod::Weaver::Role::Section';
 
+use List::Util qw(first);
 use Moose::Autobox;
 
 sub weave_section {
     my ($self, $document, $input) = @_;
 
     my $filename = $input->{filename} || 'file';
-    #my $name = $input->{zilla}->name; # dist name
 
     my $command_name;
     if ($filename =~ m!^(bin|script)/(.+)$!) {
@@ -22,11 +22,14 @@ sub weave_section {
         $self->log_debug(["skipped file %s (not an executable)", $filename]);
         return;
     }
-    my $content = do {
-        open my($fh), "<", $filename or die "Can't open $filename: $!";
-        local $/;
-        ~~<$fh>;
-    };
+
+    # find file content in zilla object, not directly in filesystem, because the
+    # file might be generated dynamically by dzil.
+    my $file = first { $_->name eq $filename } @{ $input->{zilla}->files };
+    unless ($file) {
+        $self->log_fatal(["can't find file %s in zilla object", $filename]);
+    }
+    my $content = $file->content;
     #unless ($content =~ /\A#!.+perl/) {
     #    $self->log_debug(["skipped file %s (not a Perl script)",
     #                      $filename]);
