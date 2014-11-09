@@ -1,5 +1,11 @@
 Revision history for Pod-Weaver-Section-BashCompletion-PerinciCmdLine
 
+0.02    2014-11-09 (PERLANCAR)
+
+	- [Bugfix] Get file content not from filesystem directly, but from
+	  zilla object, because the file might be generated dynamically.
+
+
 0.01    2014-11-08 (PERLANCAR)
 
         - First release.
