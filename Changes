@@ -1,5 +1,12 @@
 Revision history for Pod-Weaver-Section-BashCompletion-PerinciCmdLine
 
+0.03    2014-11-12 (PERLANCAR)
+
+	- No functional changes.
+
+	- Wording.
+
+
 0.02    2014-11-09 (PERLANCAR)
 
 	- [Bugfix] Get file content not from filesystem directly, but from
