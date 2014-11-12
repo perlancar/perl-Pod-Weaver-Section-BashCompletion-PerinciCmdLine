@@ -53,8 +53,9 @@ recognize tab completion for the command. Or, you can also directly execute the
 line above in your shell to activate immediately.
 
 You can also install L<App::BashCompletionProg> which makes it easy to add
-completion for Perinci::CmdLine-based scripts. Just execute
-C<bash-completion-prog> and the C<complete> command will be added in your
+completion for Perinci::CmdLine-based scripts. After you install the module and
+put C<. ~/.bash-complete-prog> (or C<. /etc/bash-complete-prog>), you can just
+run C<bash-completion-prog> and the C<complete> command will be added to your
 C<~/.bash-completion-prog>. Your next shell session will then recognize tab
 completion for the command.
 
