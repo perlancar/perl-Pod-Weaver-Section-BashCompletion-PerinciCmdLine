@@ -1,5 +1,11 @@
 Revision history for Pod-Weaver-Section-Completion-PerinciCmdLine
 
+0.04    2014-11-23 (PERLANCAR)
+
+	- Rename dist from Pod-Weaver-Section-{Bash,}Completion-PerinciCmdLine
+          because shell other than bash is now supported.
+
+
 0.03    2014-11-12 (PERLANCAR)
 
 	- No functional changes.
