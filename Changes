@@ -1,5 +1,11 @@
 Revision history for Pod-Weaver-Section-Completion-PerinciCmdLine
 
+0.07    2014-11-29 (PERLANCAR)
+
+	- Tweak instruction for zsh, so Perinci::CmdLine &
+	  Getopt::Long::Complete use zsh-specific module.
+
+
 0.06    2014-11-29 (PERLANCAR)
 
 	- Add instruction to activate completion for fish.
