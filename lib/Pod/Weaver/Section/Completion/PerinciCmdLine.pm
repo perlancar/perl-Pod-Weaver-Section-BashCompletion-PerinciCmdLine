@@ -93,7 +93,7 @@ $h2 zsh
 
 To activate zsh completion for this script, put:
 
- $func_name() { read -l; local cl="\$REPLY"; read -ln; local cp="\$REPLY"; reply=(`COMP_LINE="\$cl" COMP_POINT="\$cp" $command_name`) }
+ $func_name() { read -l; local cl="\$REPLY"; read -ln; local cp="\$REPLY"; reply=(`COMP_SHELL=zsh COMP_LINE="\$cl" COMP_POINT="\$cp" $command_name`) }
 
  compctl -K $func_name $command_name
 
