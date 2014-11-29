@@ -1,5 +1,10 @@
 Revision history for Pod-Weaver-Section-Completion-PerinciCmdLine
 
+0.06    2014-11-29 (PERLANCAR)
+
+	- Add instruction to activate completion for fish.
+
+
 0.05    2014-11-23 (PERLANCAR)
 
 	- Add instruction for zsh.
