@@ -1,5 +1,13 @@
 Revision history for Pod-Weaver-Section-Completion-PerinciCmdLine
 
+0.08    2014-12-07 (PERLANCAR)
+
+	- No functional changes.
+
+	- Refactor: Move section text (common with pws-comp-glcomp) to
+	  Pod::Weaver::Role::SectionText::SelfCompletion.
+
+
 0.07    2014-11-29 (PERLANCAR)
 
 	- Tweak instruction for zsh, so Perinci::CmdLine &
