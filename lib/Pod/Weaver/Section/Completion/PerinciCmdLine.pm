@@ -5,6 +5,7 @@ package Pod::Weaver::Section::Completion::PerinciCmdLine;
 
 use 5.010001;
 use Moose;
+with 'Pod::Weaver::Role::DetectPerinciCmdLineScript';
 with 'Pod::Weaver::Role::Section';
 with 'Pod::Weaver::Role::SectionText::SelfCompletion';
 
@@ -16,31 +17,18 @@ sub weave_section {
 
     my $filename = $input->{filename} || 'file';
 
-    my $command_name;
-    if ($filename =~ m!^(bin|script)/(.+)$!) {
-        $command_name = $2;
-    } else {
-        $self->log_debug(["skipped file %s (not an executable)", $filename]);
+    my $res = $self->detect_perinci_cmdline_script($input);
+    if ($filename !~ m!^(bin|script)/!) {
+        $self->log_debug(["skipped file %s (not bin/script)", $filename]);
+        return;
+    } elsif ($res->[0] != 200) {
+        die "Can't detect Perinci::CmdLine script for $filename: $res->[0] - $res->[1]";
+    } elsif (!$res->[2]) {
+        $self->log_debug(["skipped file %s (not a Perinci::CmdLine script: %s)", $filename, $res->[3]{'func.reason'}]);
         return;
     }
 
-    # find file content in zilla object, not directly in filesystem, because the
-    # file might be generated dynamically by dzil.
-    my $file = first { $_->name eq $filename } @{ $input->{zilla}->files };
-    unless ($file) {
-        $self->log_fatal(["can't find file %s in zilla object", $filename]);
-    }
-    my $content = $file->content;
-    #unless ($content =~ /\A#!.+perl/) {
-    #    $self->log_debug(["skipped file %s (not a Perl script)",
-    #                      $filename]);
-    #    return;
-    #}
-    unless ($content =~ /(use|require)\s+Perinci::CmdLine(::Any|::Lite)?/) {
-        $self->log_debug(["skipped file %s (does not use Perinci::CmdLine)",
-                          $filename]);
-        return;
-    }
+    (my $command_name = $filename) =~ s!.+/!!;
 
     my $text = $self->section_text({command_name=>$command_name});
 
