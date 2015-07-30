@@ -24,6 +24,9 @@ sub weave_section {
     } elsif (!$res->[2]) {
         $self->log_debug(["skipped file %s (not a Perinci::CmdLine script: %s)", $filename, $res->[3]{'func.reason'}]);
         return;
+    } elsif ($res->[3]{'func.is_inline'}) {
+        $self->log_debug(["skipped file %s (Perinci::CmdLine::Inline currently does not support completion)"]);
+        return;
     }
 
     (my $command_name = $filename) =~ s!.+/!!;
