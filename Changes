@@ -1,5 +1,10 @@
 Revision history for Pod-Weaver-Section-Completion-PerinciCmdLine
 
+0.13    2015-08-26 (PERLANCAR)
+
+	- [Bugfix] Forgot to assign to $text.
+
+
 0.12    2015-08-26 (PERLANCAR)
 
 	- Add support for Perinci::CmdLine::Inline.
