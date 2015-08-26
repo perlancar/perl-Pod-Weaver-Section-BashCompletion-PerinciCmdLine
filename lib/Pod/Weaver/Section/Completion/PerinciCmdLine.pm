@@ -9,6 +9,7 @@ with 'Pod::Weaver::Role::AddTextToSection';
 with 'Pod::Weaver::Role::DetectPerinciCmdLineScript';
 with 'Pod::Weaver::Role::Section';
 with 'Pod::Weaver::Role::SectionText::SelfCompletion';
+with 'Pod::Weaver::Role::SectionText::HasCompletion';
 
 sub weave_section {
     my ($self, $document, $input) = @_;
@@ -24,14 +25,16 @@ sub weave_section {
     } elsif (!$res->[2]) {
         $self->log_debug(["skipped file %s (not a Perinci::CmdLine script: %s)", $filename, $res->[3]{'func.reason'}]);
         return;
-    } elsif ($res->[3]{'func.is_inline'}) {
-        $self->log_debug(["skipped file %s (Perinci::CmdLine::Inline currently does not support completion)"]);
-        return;
     }
 
     (my $command_name = $filename) =~ s!.+/!!;
 
-    my $text = $self->section_text({command_name=>$command_name});
+    my $text;
+    if ($res->[3]{'func.is_inline'}) {
+        $self->section_text_has_completion({command_name=>$command_name});
+    } else {
+        $self->section_text_self_completion({command_name=>$command_name});
+    }
 
     $self->add_text_to_section($document, $text, 'COMPLETION');
 }
