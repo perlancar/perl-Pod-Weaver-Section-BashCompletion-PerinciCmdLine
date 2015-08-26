@@ -31,9 +31,9 @@ sub weave_section {
 
     my $text;
     if ($res->[3]{'func.is_inline'}) {
-        $self->section_text_has_completion({command_name=>$command_name});
+        $text = $self->section_text_has_completion({command_name=>$command_name});
     } else {
-        $self->section_text_self_completion({command_name=>$command_name});
+        $text = $self->section_text_self_completion({command_name=>$command_name});
     }
 
     $self->add_text_to_section($document, $text, 'COMPLETION');
