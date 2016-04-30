@@ -29,6 +29,13 @@ sub weave_section {
 
     (my $command_name = $filename) =~ s!.+/!!;
 
+    # file looks like a completer script, don't bother generating completer for
+    # completer :)
+    if ($command_name =~ /\A_/) {
+        $self->log_debug(["skipped script %s (a completer itself)", $filename]);
+        return;
+    }
+
     my $text;
     if ($res->[3]{'func.is_inline'}) {
         $text = $self->section_text_has_completion({command_name=>$command_name});
